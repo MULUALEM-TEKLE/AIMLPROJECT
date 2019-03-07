@@ -24,18 +24,17 @@ class DBHandler:
         pass 
     
 # user CRUD
-    def save_user(self , user):
+    def save_user(self , SID):
         pass
 
-    def update_user(self , user):
+    def update_user(self , SID):
         pass
 
-    def delete_user(self , user):
+    def delete_user(self , SID):
         pass
 
-    def save_user(self , user):
+    def save_user(self , SID):
         pass
 
-    def get_user(self , SID):
-        pass 
+ 
     
