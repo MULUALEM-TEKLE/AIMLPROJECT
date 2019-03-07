@@ -19,4 +19,7 @@ class Question:
             # cannot preceed
         pass
 
-    
+    def move(self , index):
+        qn = self.related_nodes[index]
+        qn.add(self)
+        return qn
