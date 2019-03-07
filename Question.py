@@ -19,6 +19,7 @@ class Question:
             # cannot preceed
         pass
 
+    # this function is used for node navigation
     def move(self , index):
         qn = self.related_nodes[index]
         qn.add(self)
