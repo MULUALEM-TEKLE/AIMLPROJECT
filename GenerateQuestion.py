@@ -9,3 +9,4 @@ class GenerateQuestion:
     def get_question(self):
         # returns the qn object synthesized by this class
         pass
+
