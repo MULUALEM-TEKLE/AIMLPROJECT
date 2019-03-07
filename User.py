@@ -1,6 +1,7 @@
-
 class User:
     def __init__(self , SID , personal_info):
+        self.SID = SID
+        self.personal_info = personal_info
         self.list_of_qns = []
         pass
 
