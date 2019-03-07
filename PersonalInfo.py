@@ -1,11 +1,12 @@
 
-def class PersonalInformation:
+class PersonalInformation:
     def __init__(self):
         # essential informations
-        first_name , last_name
-        email
-        age
-        sex
+        self.first_name = "" 
+        self.last_name = ""
+        self.email = ""
+        self.age = ""
+        self.sex = ""
         pass
     
     def get_first_name(self):
