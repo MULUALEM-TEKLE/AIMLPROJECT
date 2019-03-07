@@ -8,6 +8,8 @@ class Question:
         pass
     
     def answer(self):
+        # persist the qn 
+        user.add_qn(self)
         # returns the answer
         pass
 
