@@ -33,3 +33,6 @@ def class PersonalInformation:
         pass
     def set_sex(self , sex):
         pass
+
+    def save_to_db(self):
+        pass
