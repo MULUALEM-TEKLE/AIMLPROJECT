@@ -17,10 +17,10 @@ class DBHandler:
     def save_xml(self , xml):
         pass 
     
-     def update_xml(self , xml):
+    def update_xml(self , xml):
         pass 
     
-     def delete_xml(self , xml):
+    def delete_xml(self , xml):
         pass 
     
 # user CRUD
@@ -33,8 +33,7 @@ class DBHandler:
     def delete_user(self , SID):
         pass
 
-    def save_user(self , SID):
-        pass
+   
 
  
     
