@@ -9,5 +9,10 @@
         <pattern>MANN</pattern>
         <template>WOMAN</template>
     </category>
+
+    <category>
+        <pattern>MANN IS MAN</pattern>
+        <template>WOMAN IS NOT MAN</template>
+    </category>
      
 </aiml>
