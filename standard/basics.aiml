@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<aiml version="1.0">
+ <category>
+        <pattern>A</pattern>
+        <template>B</template>
+    </category>
+
+    <category>
+        <pattern>MANN</pattern>
+        <template>WOMAN</template>
+    </category>
+     
+</aiml>
