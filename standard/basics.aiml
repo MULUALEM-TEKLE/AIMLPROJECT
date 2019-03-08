@@ -4,7 +4,6 @@
         <pattern>A</pattern>
         <template>B</template>
     </category>
-
     <category>
         <pattern>MANN</pattern>
         <template>WOMAN</template>
