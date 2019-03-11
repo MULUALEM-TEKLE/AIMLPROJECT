@@ -10,7 +10,7 @@ def getFile(file_name):
     return xmlObj
 
 xmlObj = getFile('reed.xml')
-
+root = xmlObj.getroot()
 
 #find by tag and print content
 def findallInTag(xmlObj, tag):
@@ -29,4 +29,17 @@ def viewTag(xmlObj):
     
 
 
-viewTag(xmlObj)
+#viewTag(xmlObj)
+def writeXml(contentPat, contentLrn):
+    new_category = et.SubElement(root,"category")
+    new_pattern = et.SubElement(new_category,"pattern")
+    new_template = et.SubElement(new_category,"template")
+    new_learn = et.SubElement(new_template,"learn")
+
+    new_pattern.text = contentPat
+    new_learn.text = contentLrn
+
+    xmlObj.write('reed.xml')
+
+
+writeXml("pattern1", "learn1")
