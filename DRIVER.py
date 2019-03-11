@@ -7,6 +7,7 @@ import Question as qn
 BRAIN_FILE="brain.dump"
 
 
+
 def main():
     # Takes the user SID from another source
     personal_info = pi.PersonalInformation()
@@ -33,5 +34,6 @@ def main():
         # returns the answer
 
 
+    # now lets try to implement the training part 
 
 main()
