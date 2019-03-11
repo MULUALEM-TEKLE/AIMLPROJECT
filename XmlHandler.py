@@ -34,12 +34,12 @@ def writeXml(contentPat, contentLrn):
     new_category = et.SubElement(root,"category")
     new_pattern = et.SubElement(new_category,"pattern")
     new_template = et.SubElement(new_category,"template")
-    new_learn = et.SubElement(new_template,"learn")
+#     new_learn = et.SubElement(new_template,"learn")
 
     new_pattern.text = contentPat
-    new_learn.text = contentLrn
+    new_template.text = contentLrn
 
     xmlObj.write('reed.xml')
 
 
-writeXml("pattern1", "learn1")
+writeXml("Hi how are you", "I am fine thank you")
