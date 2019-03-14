@@ -13,5 +13,10 @@
         <pattern>MANN IS MAN</pattern>
         <template>WOMAN IS NOT MAN</template>
     </category>
+
+    <category>
+        <pattern>እንኳን ደህና መጣህ</pattern>
+        <template>እንኳን</template>
+    </category>
      
 </aiml>
