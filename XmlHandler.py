@@ -89,10 +89,21 @@ def writeCategoryThat(contentPat, contentThat,contentTemp):
     new_that.text = contentThat
     new_template.text = contentTemp
     xmlObj.write('reed.xml')
-writeCategoryThat("pattern *", "thhhaat", "hi")
+
 
 #write a new topic
-def writeTopic
+def writeTopic(contentPat,contentTemp, topicName):
+    new_topic = et.SubElement(root,"topic")
+    new_category = et.SubElement(new_topic,"category")
+    new_pattern = et.SubElement(new_category,"pattern")
+    new_template = et.SubElement(new_category,"template")
+
+    new_pattern.text = contentPat.upper()
+    new_template.text = contentTemp
+    new_topic.attrib["name"]=topicName
+    xmlObj.write('reed.xml')
+
+writeTopic("pattern","content","topic1")
 '''for movie in root.iter('learn'):
     print(movie.attrib)
 '''
