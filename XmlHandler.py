@@ -102,8 +102,33 @@ def writeTopic(contentPat,contentTemp, topicName):
     new_template.text = contentTemp
     new_topic.attrib["name"]=topicName
     xmlObj.write('reed.xml')
+'''
+for elem in root.findall('.//child/grandchild'):
+    # How to make decisions based on attributes even in 2.6:
+    if elem.attrib.get('name') == 'foo':
+        result = elem.text
+        break
+'''
+#find a tag which contains a specific content
+def findTagWithContent(tagName, tagContent):
+    for tag in root.iter():
+        if (tag.tag==tagName and tag.text==tagContent):
+            return tag
+        return "Tag not found"
 
-writeTopic("pattern","content","topic1")
-'''for movie in root.iter('learn'):
-    print(movie.attrib)
+#find tag based on attribute value
+def findTagWithAttribute(tagName, attributeName, attributeValue):
+    for tag in root.iter():
+        if(tag.tag == tagName and tag.attrib[attributeName]==attributeValue):
+            return tag
+    return "Tag not found"
+'''
+gotTag=findTagWithAttribute("topic", "name", "topic1")
+print(gotTag.tag)
+
+gotTag=findTagWithContent("pattern", "LOAD AIML B")
+print(gotTag.tag)
+
+for tag in root.iter():
+    print(tag.tag+"   "+tag.text)
 '''

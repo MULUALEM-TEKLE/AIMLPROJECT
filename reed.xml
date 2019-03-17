@@ -7,4 +7,4 @@
         </template>
     </category>
 
-</aiml>
+<topic name="topic1" /><category><pattern>PATTERN</pattern><template>content</template></category><topic name="topic1"><category><pattern>PATTERN</pattern><template>content</template></category></topic></aiml>
