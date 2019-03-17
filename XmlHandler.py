@@ -102,13 +102,7 @@ def writeTopic(contentPat,contentTemp, topicName):
     new_template.text = contentTemp
     new_topic.attrib["name"]=topicName
     xmlObj.write('reed.xml')
-'''
-for elem in root.findall('.//child/grandchild'):
-    # How to make decisions based on attributes even in 2.6:
-    if elem.attrib.get('name') == 'foo':
-        result = elem.text
-        break
-'''
+
 #find a tag which contains a specific content
 def findTagWithContent(tagName, tagContent):
     for tag in root.iter():
@@ -122,6 +116,8 @@ def findTagWithAttribute(tagName, attributeName, attributeValue):
         if(tag.tag == tagName and tag.attrib[attributeName]==attributeValue):
             return tag
     return "Tag not found"
+
+
 '''
 gotTag=findTagWithAttribute("topic", "name", "topic1")
 print(gotTag.tag)
@@ -131,4 +127,12 @@ print(gotTag.tag)
 
 for tag in root.iter():
     print(tag.tag+"   "+tag.text)
+
+
+for elem in root.findall('.//child/grandchild'):
+    # How to make decisions based on attributes even in 2.6:
+    if elem.attrib.get('name') == 'foo':
+        result = elem.text
+        break
+
 '''
