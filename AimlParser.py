@@ -11,7 +11,7 @@ class AimlParser:
         pass
 
     def update_user_object(self):
-        # this will updte the user object on the fly
+        # this will updte the user object dynamically
         pass
     
     
