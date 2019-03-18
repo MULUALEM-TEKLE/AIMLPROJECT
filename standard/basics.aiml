@@ -1,22 +1,40 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <aiml version="1.0">
- <category>
-        <pattern>A</pattern>
-        <template>B</template>
-    </category>
-    <category>
-        <pattern>MANN</pattern>
-        <template>WOMAN</template>
-    </category>
+    <topic name="">
+        <category>
+            <pattern>A</pattern>
+            <template>B</template>
+        </category>
 
-    <category>
-        <pattern>MANN IS MAN</pattern>
-        <template>WOMAN IS NOT MAN</template>
-    </category>
+        <category>
+            <pattern>MANN</pattern>
+            <template>WOMAN <think><set name="speed">low</set></think> </template>
+            <that />
+        </category>
 
+        <category>
+            <pattern>MANN IS MAN</pattern>
+            <template>WOMAN IS NOT MAN</template>
+        </category>
+        <category><pattern>HI THERE</pattern><template>hey hi</template><that /></category>
+    </topic>
     <category>
-        <pattern>እንኳን ደህና መጣህ</pattern>
-        <template>እንኳን</template>
+        <pattern> MAKE SOME QUESTION </pattern>
+        <template>
+            Do you like movies?
+        </template>
     </category>
-     
-</aiml>
+    <category>
+        <pattern> YES </pattern>
+        <that> Do you like movies?  </that>
+        <template>
+            Nice, I like movies too. 
+        </template>
+    </category>
+    <category>
+        <pattern> NO </pattern>
+        <that> Do you like movies? </that>
+        <template>
+            OK. But I like movies.
+        </template>
+    </category>
+    </aiml>
