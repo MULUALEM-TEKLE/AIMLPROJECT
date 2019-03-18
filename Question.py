@@ -1,20 +1,24 @@
-
+import time
+import AimlParser
 class Question:
-    def __init__(self , user , question_str , kernel):
-        self.user = user 
-        self.question_str = question_str
+    def __init__(self):
+        self.Aiml=AimlParser.AimlParser()
         self.accuracy = 0.0
         self.related_nodes = []
-        self.kernel = kernel
-        pass
+        self.response=dict()
     
-    def answer(self):
-        # persist the qn 
-        # self.user.add_qn(self)
-        response = self.kernel.respond(self.question_str)
-        # returns the answer
-        return response
+    def answer(self,question_dict):
+        self.response["answer"]= self.Aiml.get_response(question_dict["question"].upper()).upper()#.lower().capitalize()
+        self.response["question"]=question_dict["question"]
+        self.response["Accuracy"]="1%"
+        self.response["date"]=time.time()
+        return self.response
         
+
+
+
+
+
 
     # this functionality will be done later dont bother about it
     # def add_related_qn_node(self , qn):
