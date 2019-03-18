@@ -1,0 +1,38 @@
+<aiml version="1.0">
+    <category>
+        <pattern>LOAD AIML B</pattern>
+        <template>
+            
+            <learn>standard/basics.aiml</learn>
+        </template>
+    </category>
+    <category>
+        <pattern>pattern1</pattern>
+        <template>
+            <learn>learn1</learn>
+        </template>
+    </category>
+    <category>  
+        <pattern>Hi how are you</pattern>
+        <template>I am fine thank you</template>
+    </category>
+</aiml>
+
+
+
+
+ def setStar(self,strval,element): # trainers  write *1 or * ....
+        strval=strval.split("*")
+        str_element="<"+element+"> "
+        element.text=""
+        for i in range(len(strval)):
+            element.text+=strval[i]
+            if(i+1<len(strval)):
+                if(len(strval[i+1])>1 and strval[i+1][0].isdigit()):
+                    star=et.SubElement(element,"star")
+                    star.attrib["name"]=strval[i+1][0]
+                    strval[i+1][0]=""
+                else:
+                    star=et.SubElement(element,"star")
+                    star.attrib["name"]="1"
+        return element
