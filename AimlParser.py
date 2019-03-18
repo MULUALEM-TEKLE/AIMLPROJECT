@@ -1,18 +1,28 @@
 # This class handles everything that is related with aiml proccessing
+import os
+import json
+import aiml
+import time
 
+BRAIN_FILE="brain.dump"
 class AimlParser:
-    def __init__(self , aiml_xml , user):
-        # this will set the user object ; and this will set the aiml_xml to it self
-        pass
+    def __init__(self):
+        self._kernel= aiml.Kernel()
+        if os.path.exists(BRAIN_FILE):
+            print("Loading from brain file: " + BRAIN_FILE)
+            self._kernel.loadBrain(BRAIN_FILE)
+        else:
+            print("Parsing aiml files")
+            self._kernel.bootstrap(learnFiles="standard/basics.aiml", commands="load aiml b")
+            print("Saving brain file: " + BRAIN_FILE)
+            self._kernel.saveBrain(BRAIN_FILE)
 
+    def getKernel(self):
+        return self._kernel
+        
     def get_response(self , message):
-        # this will also add the question object to the user object
-        # returns an answer for the message from the aiml_xml
-        pass
+       return self._kernel.respond(message)
 
-    def update_user_object(self):
-        # this will updte the user object dynamically
-        pass
     
     
 
