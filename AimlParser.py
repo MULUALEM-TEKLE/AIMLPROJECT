@@ -4,18 +4,17 @@ import json
 import aiml
 import time
 
-BRAIN_FILE="brain.dump"
 class AimlParser:
-    def __init__(self):
+    def __init__(self, fileName="standard/basics.aiml",brainName="brain.dump"):
         self._kernel= aiml.Kernel()
-        if os.path.exists(BRAIN_FILE):
-            print("Loading from brain file: " + BRAIN_FILE)
-            self._kernel.loadBrain(BRAIN_FILE)
+        if os.path.exists(brainName):
+            print("Loading from brain file: " + brainName)
+            self._kernel.loadBrain(brainName)
         else:
-            print("Parsing aiml files")
-            self._kernel.bootstrap(learnFiles="standard/basics.aiml", commands="load aiml b")
-            print("Saving brain file: " + BRAIN_FILE)
-            self._kernel.saveBrain(BRAIN_FILE)
+            print("Parsing aiml files...")
+            self._kernel.bootstrap(learnFiles=fileName)
+            print("Saving brain file: " + brainName)
+            self._kernel.saveBrain(brainName)
 
     def getKernel(self):
         return self._kernel
