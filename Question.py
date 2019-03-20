@@ -1,8 +1,8 @@
 import time
 import AimlParser
 class Question:
-    def __init__(self):
-        self.Aiml=AimlParser.AimlParser()
+    def __init__(self,filename="standard/basics.aiml",brainName="brain.dump"):
+        self.Aiml=AimlParser.AimlParser(filename,brainName)
         self.accuracy = 0.0
         self.related_nodes = []
         self.response=dict()
