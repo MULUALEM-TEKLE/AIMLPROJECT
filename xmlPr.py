@@ -1,6 +1,5 @@
 import os
 import xml.etree.ElementTree as et
-import aiml
 
 class XmlPr:
     def __init__(self,filename="standard/basics.aiml"):
@@ -10,11 +9,17 @@ class XmlPr:
         self.xmlObj=None
         self.parent=None
         self.getFile()
-
+    
     def getFile(self):
-        self.xmlObj = et.parse(self.filename)
-        self.root=self.xmlObj.getroot()
-        return self.xmlObj
+        try:
+            self.xmlObj = et.parse(self.filename)
+            self.root=self.xmlObj.getroot()
+            return self.xmlObj
+        except:
+            f=open(self.filename,"w")
+            f.write("<aiml></aiml>")
+            f.close()
+            self.getFile()
 
     def setValues(self,Values):
         self.Values=Values
@@ -59,16 +64,15 @@ class XmlPr:
         if(self.Values.get("think")!=None):
             self.setStar(self.Values["think"],"think",self.parent)
 
-    def setCondition(self): # condition dictionary value contain a list of condition name , condition list and response text.
-        if(self.Values.get("condition")!=None):
-            state_name=self.Values["condition"][0]
+    def setCondition(self): # condition dictionary value contain...
+        if(self.Values.get("condition")!=None): # ...a list of condition name
+            state_name=self.Values["condition"][0] # ... ,condition list and response text.
             cond_list=self.Values["condition"][1]
             response_list=self.Values["condition"][2]
             for i in range(len(cond_list)):
                 new_condition = et.SubElement(self.parent,"condition")
                 new_condition.attrib["name"]=state_name
                 new_condition.attrib["value"]=cond_list[i]
-                # new_condition=self.setStar(response_list[i],new_condition)
                 new_condition.text=response_list[i]
 
     def setLearn(self):
@@ -115,10 +119,29 @@ class XmlPr:
             self.setCondition()
             self.setThink()
 
+    
+    def findTagWithContents(self,tagName="catagory",attribN="",attribV="", tagContent="<>"):
+        list_Of_tags=[]
+        for sub_tag in self.root:
+            if(sub_tag.tag=="topic"):
+               for ssub_tag in sub_tag:
+                    self.findInnerTag(tagName,attribN,attribV, tagContent,ssub_tag,ssub_tag,list_Of_tags)
+            else:self.findInnerTag(tagName,attribN,attribV, tagContent,sub_tag,sub_tag,list_Of_tags)
+        return list_Of_tags
+
+    
+    def findInnerTag(self,tagName,attribN,attribV, tagContent,parent,root,list_Of_tags):
+        if (parent.tag==tagName or parent.attrib.get(attribN)==attribV 
+            or (parent.text!=None and parent.text.find(tagContent)!=-1)):
+            list_Of_tags.append(root)
+        for sub_tag in parent.getchildren():
+            self.findInnerTag(tagName,attribN,attribV, tagContent,sub_tag,root,list_Of_tags)
+    
+
     def saveXml(self,BRAIN_FILE="brain.dump" ):  
-            _kernel= aiml.Kernel()
             if os.path.exists(BRAIN_FILE):
                 print("Deleting Existing file...")
                 os.remove(BRAIN_FILE)
             self.xmlObj.write(self.filename)
-            
+
+
