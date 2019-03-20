@@ -4,55 +4,64 @@ import aiml
 import Question as qn 
 import time
 import Train
-
+import xml.dom.minidom
 
 def test():
-  qsn=qn.Question()
-  _input=input("XAD:~#")
-  while _input!="exit":
-        questn={"question":_input,"date":time.time()}
-        response = qsn.answer(questn)
+      qsn=qn.Question()
+      print("\nEnter The File name and The brain dump name or Press Enter to use the default")
+      filename=input("file name >> ")
+      if(filename!=""):
+            qsn=qn.Question(filename)
+      _input=input("XAD:~#")
+      while _input!="exit":
+            questn={"question":_input,"date":time.time()}
+            response = qsn.answer(questn)
 
-        print("question: ",response["question"])
-        print("answer: ",response["answer"])
-        print("date: ",response["date"])
-        print("Accuracy: ",response["Accuracy"])
-        _input = input("XAD:~#")
+            print("question: ",response["question"])
+            print("answer: ",response["answer"])
+            print("date: ",response["date"])
+            print("Accuracy: ",response["Accuracy"])
+            _input = input("XAD:~#")
 
 
 
 def train():
-  train=Train.Train()
-  print("Enter\n 1 to train\n 2 to publish\n exit to exit ")
-  _input=input("XAD:~#")
-  while _input!="exit":
-        if(int(_input)==1):
-            patt=input("Pattern :")
-            topic= input("Topic :")
-            if topic=="": topic=None 
-            that=input("That :")
-            if that=="": that=None
-            print("if the Template is a String enter 1....")
-            _input=input("XAD:~#")
-            if not _input.isdigit():
-                  print("Enter \n\t1.for learn,srai and think elements\n\t2.for a condition\n\t3. for a random")
+      print("Enter the  file Name or press Enter to use the default")
+      filename=input("filename >> ")
+      train=Train.Train()
+      if(filename!=""): train=Train.Train(filename)
+      print("Enter\n 1 to train\n 2 to search\n 3 to publish\n exit to exit ")
+      _input=input("XAD:~#")
+      while _input!="exit":
+            if(int(_input)==1):
+                  patt=input("Pattern :")
+                  topic= input("Topic :")
+                  if topic=="": topic=None 
+                  that=input("That :")
+                  if that=="": that=None
+                  print("if the Template is a String enter 1....")
                   _input=input("XAD:~#")
-                  if int(_input)==1 :
-                        type_name=input("Type name >> ") 
-                        response=input("Type value >> ")  
-                        train.add_conversation_t2(patt,type_name,response,that,topic)
-                  elif(int(_input)==2):
-                        setRandom(train,patt,that,topic)
-                  elif (int(_input)==3):
-                        setCondition(train,patt,that,topic)
-            elif int(_input)==1:
-                  temp=input("Template :")
-                  train.add_conversation_t1(patt,temp,that,topic)
-        elif(int(_input)==2):
-              train.publish()
+                  if not _input.isdigit():
+                        print("Enter \n\t1.for learn,srai and think elements\n\t2. for a random\n\t3.for a condition")
+                        _input=input("XAD:~#")
+                        if int(_input)==1 :
+                              type_name=input("Type name >> ") 
+                              response=input("Type value >> ")  
+                              train.add_conversation_t2(patt,type_name,response,that,topic)
+                        elif(int(_input)==2):
+                              setRandom(train,patt,that,topic)
+                        elif (int(_input)==3):
+                              setCondition(train,patt,that,topic)
+                  elif int(_input)==1:
+                        temp=input("Template :")
+                        train.add_conversation_t1(patt,temp,that,topic)
+            elif(int(_input)==2):
+                  search_tag(train)
+            elif(int(_input)==3):
+                  train.publish()
 
-        print("Enter\n 1 to train\n 2 to publish\n exit to exit ")
-        _input = input("XAD:~#")
+            print("Enter\n 1 to train\n 2 to search\n 3 to publish\n exit to exit ")
+            _input = input("XAD:~#")
 
 def setCondition(train,patt,that,topic):
       conditions=[None,[],[]]
@@ -67,6 +76,7 @@ def setCondition(train,patt,that,topic):
             response=input("response value >> ") 
       train.add_conversation_t2(patt,"condition",conditions,that,topic)
 
+
 def setRandom(train,patt,that,topic):
       random=[]
       print("Enter the random values \n\t or exit to exit")
@@ -76,17 +86,53 @@ def setRandom(train,patt,that,topic):
             state=input("random value >> ") 
       train.add_conversation_t2(patt,"random",random,that,topic)
 
+def search_tag(train):
+      tagName=input("Tag Name >> ")
+      attribNam=input("Attribute Name  >> ")
+      attribVal=input("Attribute Value >> ")
+      tagContent=input("Tag Content >> ")
+      if(tagContent==""):tagContent="<>"
+      train.searchCatagories(tagName,attribNam,attribVal,tagContent)
+      ans=input("Enter \n 1. to update tag value >> ")
+      if(ans.isdigit() and int(ans)==1): update_tag(train)
 
-def main():
-   
-    print("Enter\n 1 to Test\n 2 to Train")
+def update_tag(train):
+      index=int(input("Tag Index >> "))
+      ans=input("Enter\n 1.To update tag value\n 2.To update attribute value\n\t Enter >> ")
+      if(ans.isdigit() and int(ans)==1):
+            tagName=input("Tag Name >> ")
+            tagContent=input("Tag Content >> ")
+            train.updateText(tagName,tagContent,index)
+      if(ans.isdigit() and int(ans)==2):
+            tagName=input("Tag Attribute Name >> ")
+            tagContent=input("Tag Attribute Value >> ")
+            train.updateText(tagName,tagContent,index)
+
+
+def structure_xml(filename="standard/basics.aiml"):
+      formatted=open(filename,"r").read()
+      while(formatted.find("\n")!=-1 or formatted.find("\t")!=-1):
+            formatted=formatted.replace("\n","")
+            formatted=formatted.replace("\t","")
+      x=open(filename,"w")
+      x.write(formatted)
+      x.close()
+      dom=xml.dom.minidom.parse(filename)
+      formatted=dom.toprettyxml()      
+      open(filename,"w").write(formatted)
+
+
+def main():   
+    print("Enter\n 1 to Test\n 2 to Train\n 3 to Format")
     _input=input("XAD:~#")
     while True:
-        if(int(_input)==1):
-            test()
-        else:
-            train()
-        print("Enter\n 1 to Test\n 2 to Train")
-        _input=input("XAD:~#")
+            if(int(_input)==1):
+                  test()
+            elif(int(_input)==2):
+                  train()
+            elif((int(_input)==3)):
+                  structure_xml()
+            print("Enter\n 1 to Test\n 2 to Train\n 3 to Format")
+            _input=input("XAD:~#")
 
 main()
