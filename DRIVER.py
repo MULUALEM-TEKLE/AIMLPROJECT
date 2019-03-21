@@ -1,28 +1,19 @@
-import os
-import json
-import aiml
 import Question as qn 
-import time
 import Train
-import xml.dom.minidom
+from bootsrap import *
 
 def test():
       qsn=qn.Question()
-      print("\nEnter The File name and The brain dump name or Press Enter to use the default")
+      print("\n\tEnter The File name and The brain dump name\n\tor Press Enter to use the default")
       filename=input("file name >> ")
-      if(filename!=""):
-            qsn=qn.Question(filename)
+      if(filename!=""):qsn=qn.Question(filename)
       _input=input("XAD:~#")
       while _input!="exit":
             questn={"question":_input,"date":time.time()}
             response = qsn.answer(questn)
-
-            print("question: ",response["question"])
-            print("answer: ",response["answer"])
-            print("date: ",response["date"])
-            print("Accuracy: ",response["Accuracy"])
+            print("question: ",response["question"],"\n","answer: ",response["answer"])
+            print("date: ",response["date"],"\n","Accuracy: ",response["Accuracy"])
             _input = input("XAD:~#")
-
 
 
 def train():
@@ -34,34 +25,41 @@ def train():
       _input=input("XAD:~#")
       while _input!="exit":
             if(int(_input)==1):
-                  patt=input("Pattern :")
-                  topic= input("Topic :")
-                  if topic=="": topic=None 
-                  that=input("That :")
-                  if that=="": that=None
-                  print("if the Template is a String enter 1....")
-                  _input=input("XAD:~#")
-                  if not _input.isdigit():
-                        print("Enter \n\t1.for learn,srai and think elements\n\t2. for a random\n\t3.for a condition")
-                        _input=input("XAD:~#")
-                        if int(_input)==1 :
-                              type_name=input("Type name >> ") 
-                              response=input("Type value >> ")  
-                              train.add_conversation_t2(patt,type_name,response,that,topic)
-                        elif(int(_input)==2):
-                              setRandom(train,patt,that,topic)
-                        elif (int(_input)==3):
-                              setCondition(train,patt,that,topic)
-                  elif int(_input)==1:
-                        temp=input("Template :")
-                        train.add_conversation_t1(patt,temp,that,topic)
+                 set_conversation(train)
             elif(int(_input)==2):
                   search_tag(train)
             elif(int(_input)==3):
                   train.publish()
-
             print("Enter\n 1 to train\n 2 to search\n 3 to publish\n exit to exit ")
             _input = input("XAD:~#")
+
+
+def set_conversation(train):
+      patt=input("Pattern :")
+      topic= input("Topic :")
+      if topic=="": topic=None 
+      that=input("That :")
+      if that=="": that=None
+      print("if the Template is a String\n Enter 1 ")
+      _input=input(" XAD:~#")
+      if _input.isdigit() and int(_input)==1:
+            temp=input("Template :")
+            train.add_conversation_t1(patt,temp,that,topic)
+      else: set_other_conversations(train,patt,that,topic)
+
+
+def set_other_conversations(train,patt,that,topic):
+      print("Enter \n\t1.for learn,srai and think elements\n\t2. for a random\n\t3.for a condition")
+      _input=input("XAD:~#")
+      if int(_input)==1 :
+            type_name=input("Type name >> ") 
+            response=input("Type value >> ")  
+            train.add_conversation_t2(patt,type_name,response,that,topic)
+      elif(int(_input)==2):
+            setRandom(train,patt,that,topic)
+      elif (int(_input)==3):
+            setCondition(train,patt,that,topic)
+
 
 def setCondition(train,patt,that,topic):
       conditions=[None,[],[]]
@@ -86,6 +84,7 @@ def setRandom(train,patt,that,topic):
             state=input("random value >> ") 
       train.add_conversation_t2(patt,"random",random,that,topic)
 
+
 def search_tag(train):
       tagName=input("Tag Name >> ")
       attribNam=input("Attribute Name  >> ")
@@ -96,17 +95,23 @@ def search_tag(train):
       ans=input("Enter \n 1. to update tag value >> ")
       if(ans.isdigit() and int(ans)==1): update_tag(train)
 
+
 def update_tag(train):
       index=int(input("Tag Index >> "))
-      ans=input("Enter\n 1.To update tag value\n 2.To update attribute value\n\t Enter >> ")
+      ans=input("Enter\n 1.To update tag value\n 2.To update attribute value\n 3.To add new Tag\n\t Enter >> ")
       if(ans.isdigit() and int(ans)==1):
             tagName=input("Tag Name >> ")
             tagContent=input("Tag Content >> ")
             train.updateText(tagName,tagContent,index)
-      if(ans.isdigit() and int(ans)==2):
+      elif(ans.isdigit() and int(ans)==2):
             tagName=input("Tag Attribute Name >> ")
             tagContent=input("Tag Attribute Value >> ")
-            train.updateText(tagName,tagContent,index)
+            train.updateAttrib(tagName,tagContent,index)
+      elif(ans.isdigit() and int(ans)==3):
+            ptagName=input("Parent Tag  Name >> ")
+            tagName=input("Tag  Name >> ")
+            tagContent=input("Tag  Value >> ")
+            train.add_new_tag(tagName,tagContent,ptagName,index)
 
 
 def structure_xml(filename="standard/basics.aiml"):
@@ -126,13 +131,14 @@ def main():
     print("Enter\n 1 to Test\n 2 to Train\n 3 to Format")
     _input=input("XAD:~#")
     while True:
-            if(int(_input)==1):
-                  test()
-            elif(int(_input)==2):
-                  train()
-            elif((int(_input)==3)):
-                  structure_xml()
-            print("Enter\n 1 to Test\n 2 to Train\n 3 to Format")
-            _input=input("XAD:~#")
+      if(int(_input)==1):
+            test()
+      elif(int(_input)==2):
+            train()
+      elif((int(_input)==3)):
+            structure_xml()
+      print("Enter\n 1 to Test\n 2 to Train\n 3 to Format")
+      _input=input("XAD:~#")
+
 
 main()
