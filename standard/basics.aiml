@@ -1,3 +1,4 @@
+<?xml version="1.0" ?>
 <aiml version="1.0">
 	    
 	<topic name="">
@@ -15,7 +16,7 @@
 			<pattern>MANN</pattern>
 			            
 			<template>you have been wiped!!</template>
-			<that />
+			<that/>
 			        
 		</category>
 		        
@@ -23,12 +24,13 @@
 			            
 			<pattern>MANN IS MAN</pattern>
 			            
-			<template>wiped!!!</template></category>
+			<template>wiped!!!</template>
+		</category>
 		        
 		<category>
 			<pattern>HI THERE</pattern>
 			<template>hey hi</template>
-			<that />
+			<that/>
 		</category>
 		    
 	</topic>
@@ -67,31 +69,62 @@
 			<random>
 				<li>
 					 hello 
-					<star index="1" />
+					<star index="1"/>
 				</li>
 				<li>
 					 hi 
-					<star index="1" />
+					<star index="1"/>
 				</li>
 				<li>
 					 hey 
-					<star index="1" />
+					<star index="1"/>
 				</li>
 				<li>
 					 wellcome 
-					<star index="1" />
+					<star index="1"/>
+				</li>
+				<li>
+					 hello 
+					<star index="1"/>
+				</li>
+				<li>
+					 hello sir 
+					<star index="1"/>
+					 how r u doing
+				</li>
+				<li>
+					 selam 
+					<star index="1"/>
+					!
 				</li>
 			</random>
 		</template>
+		<that> hello?</that>
 	</category>
 	    
 	<category>
 		<pattern>HELLO * IM *</pattern>
-		<template>wiped!!</template>
+		<template>
+			wiped!!
+			<set name="val"> val</set>
+			 
+		</template>
 	</category>
 	    
 	<category>
 		<pattern>_ XYZ</pattern>
 		<template> it is xyz</template>
+	</category>
+	<category>
+		<pattern>HELLO * DO YOU REMEMBER ME * I * *</pattern>
+		<template>
+			 yes 
+			<star index="2"/>
+			 how r u?, yes you did 
+			<star index="3"/>
+			<star index="4"/>
+			! do you still call me 
+			<star index="1"/>
+		</template>
 	</category>
 </aiml>
