@@ -1,8 +1,5 @@
 # This class handles everything that is related with aiml proccessing
-import os
-import json
-import aiml
-import time
+from bootsrap import *
 
 class AimlParser:
     def __init__(self, fileName="standard/basics.aiml",brainName="brain.dump"):
