@@ -20,7 +20,6 @@ class Question:
 
 
 
-
     # this functionality will be done later dont bother about it
     # def add_related_qn_node(self , qn):
     #     if add_related_qn_node.length <=4:

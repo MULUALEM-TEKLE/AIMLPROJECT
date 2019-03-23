@@ -1,5 +1,5 @@
-# This class handles everything that is related with aiml proccessing
-from bootsrap import *
+import os
+import aiml
 
 class AimlParser:
     def __init__(self, fileName="standard/basics.aiml",brainName="brain.dump"):
@@ -12,7 +12,7 @@ class AimlParser:
             self._kernel.bootstrap(learnFiles=fileName)
             print("Saving brain file: " + brainName)
             self._kernel.saveBrain(brainName)
-
+            
     def getKernel(self):
         return self._kernel
         

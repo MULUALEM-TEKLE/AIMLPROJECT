@@ -1,6 +1,7 @@
 import Question as qn 
 import Train
-from bootsrap import *
+import time
+import xml.dom.minidom
 
 def test():
       qsn=qn.Question()
@@ -18,8 +19,8 @@ def test():
 
 def train():
       print("Enter the  file Name or press Enter to use the default")
-      filename=input("filename >> ")
       train=Train.Train()
+      filename=input("filename >> ")
       if(filename!=""): train=Train.Train(filename)
       print("Enter\n 1 to train\n 2 to search\n 3 to publish\n exit to exit ")
       _input=input("XAD:~#")

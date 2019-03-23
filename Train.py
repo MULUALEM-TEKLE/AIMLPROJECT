@@ -28,6 +28,7 @@ class Train:
             self.display_tags(count,self.listOfTag[counter])       
             print("------------------------------------------------------------------------------------")   
 
+    # Internal Display function shouldnt exist on the final publication.....    
     def display_tags(self,tab,tag):
         print(("\t"*tab),"Tag Name :",tag.tag)
         if len(tag.getchildren())==0:
@@ -42,45 +43,21 @@ class Train:
 
     def updateText(self,tagName,tagvalue,index):
         el=self.listOfTag[index-1]
-        el=self.replaceText(tagName,tagvalue,el)    
+        el=self.xml_Parser.replaceText(tagName,tagvalue,el)    
         count=1
         self.display_tags(count,el)
     
-    def replaceText(self,tagName,tagvalue,parent):
-        for tag in parent:
-            if (tag.tag==tagName): 
-                tag.clear()
-                tag.text=tagvalue
-                return parent
-            else: 
-                self.replaceText(tagName,tagvalue,tag)
-
     def updateAttrib(self,attribName,attribValue,index):
         el=self.listOfTag[index-1]
-        el=self.replaceAttrib(attribName,attribValue,el)   
+        el=self.xml_Parser.replaceAttrib(attribName,attribValue,el)   
         count=1
         self.display_tags(count,el)
         
-    def replaceAttrib(self,attribName,attribValue,parent):
-        for tag in parent:
-            if (tag.attrib.get(attribName)!=None): 
-                tag.clear()
-                tag.attrib[attribName]=attribValue
-                return parent
-            else: 
-                self.replaceText(attribName,attribValue,tag)
-
     def add_new_tag(self,tagName,tagValue,p_tag,index):
         el=self.listOfTag[index-1]
-        self.add_inner_tag(tagName,tagValue,el,p_tag)
+        self.xml_Parser.add_inner_tag(tagName,tagValue,el,p_tag)
         count=1
         self.display_tags(count,el)
 
-    def add_inner_tag(self,tagName,tagValue,parent,p_tag):
-        for tag in parent:
-            if (tag.tag==p_tag): 
-                self.xml_Parser.addtag(tagName,tagValue,tag)
-                return parent
-            else: 
-                self.add_inner_tag(tagName,tagValue,tag,p_tag)
+    
 
